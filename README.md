@@ -1,0 +1,9 @@
+- src
+    - css
+    - store
+    - utils
+    - pages
+    - static-pages
+    - shared
+    - layout
+    - routes
