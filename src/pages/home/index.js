@@ -111,9 +111,9 @@ const HomePage = () => {
     return <>
         <div className="container"><MainSlideshow bannerGuid="5df73294-605a-45ee-9a72-fcfc57d2cabb" /></div>
         <CategoryCarousel showCategoryDescription={false} />
-        <ProductSection sectionName="Whats-New" sectionTitle="NEW ARRIVALS" isCarousel={false} />
+        <ProductSection sectionName="best-sellers" sectionTitle="NEW ARRIVALS" isCarousel={false} />
         <SingleBanner />
-        <ProductSection sectionName="Whats-New" sectionTitle="TRENDING NOW" isCarousel={true} />
+        <ProductSection sectionName="best-sellers" sectionTitle="TRENDING NOW" isCarousel={true} />
         <CategoryCarousel showCategoryDescription={true} />
     </>
 }

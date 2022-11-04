@@ -1,8 +1,8 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export default function useGetCategoryMenuData () {
     return useQuery({
-        queryKey: 'categoryMenuData',
+        queryKey: ['categoryMenuData'],
         queryFn: async () => new Promise((resolve, reject) => {
             window.callApi({
                 url: window.SaaS_ProductListing_Microservice_URL + "api/Products/GetCategoryMenu",

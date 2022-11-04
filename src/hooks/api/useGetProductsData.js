@@ -1,6 +1,8 @@
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export default function useGetProductsData ({wishlistCount = 0, productBasketVM}) {
+    let queryClient = useQueryClient();
+    
     return useQuery({
         queryKey: ['getProducts', productBasketVM.CategoryGuid],
         queryFn: async () => new Promise((resolve, reject) => {
@@ -20,6 +22,16 @@ export default function useGetProductsData ({wishlistCount = 0, productBasketVM}
             });
         }),
         retry: 1,
-        staleTime: 1000 * 60 * 10 // 10 minutes
+        staleTime: 1000 * 60 * 10 ,// 10 minutes
+        onSuccess: (res) => {
+            console.log("success", res);
+            res.forEach(p => {
+                queryClient.setQueryData(
+                    ['product', p.productGuid],
+                    p
+                )
+            })
+        }
+
     })
 }

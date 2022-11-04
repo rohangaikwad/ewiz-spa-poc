@@ -98,7 +98,7 @@ const ProductCard = ({ productData, isSubscribe = false }) => {
 
     return <div className="card product-card">
         <div className="productImage">
-            <Link state={productData} to={"/" + productData?.detailURL.replace("https://demo.ewizcommerce.com/", "")}>
+            <Link state={productData} to={"/" + productData?.detailURL.replace("https://demo.ewizcommerce.com/", "").replace(window.location.origin + "/", "")}>
                 <img className="lazyload ls-is-cached img-fluid" src={defaultSVGImage} data-src={productData.ProductImageUrl || productData.productImageURL || productData.productImageUrl} alt={productData.productname || productData.productName} />
             </Link>
             <div className="wishlist-and-view-main-div">
