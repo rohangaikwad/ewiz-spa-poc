@@ -1,3 +1,7 @@
+:root {
+    --main-color: #0e97e7;
+}
+
 * { box-sizing: border-box; }
 body { margin: 0; }
 ul { margin: 0; }
@@ -14,7 +18,7 @@ main#root {
     display: flex; margin-bottom: 30px;
     .breadcrumb-item {
         &:not(:last-child){
-            a { text-decoration: underline; }
+            a { border-bottom: dashed 1px #666; }
             &:after {
                 content: "/"; margin: 0 10px;
             }
@@ -23,21 +27,10 @@ main#root {
     }
 }
 
-.media-list-images {
-    display: grid; gap: 15px; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); margin-top: 20px;
-    .media-item {
-        background-color: #f1f1f1; overflow: hidden; cursor: pointer; border-radius: 5px; padding: 10px;
-        img { width: 100%; }
-    }
+@font-face {
+    font-family: 'icomoon';
+    src: url(https://d3lhatfimi1ec.cloudfront.net/8FFB58E5-3928-4769-87FF-B0BAE8E8F939/css/fonts/icomoon.woff) format('woff');
+    font-weight: normal; font-style: normal; font-display: block;
 }
-
-.variants {
-    .variant-list {
-        display: grid; gap: 15px; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
-        .variant-item {
-            background-color: #f1f1f1; overflow: hidden; cursor: pointer; border-radius: 5px; padding: 5px;  border: solid 1px #ccc;
-            &.active { border-color:#333; }
-            img { width: 100%; }
-        }
-    }
-}
+        
+[class^="icomoon-"], [class*=" icomoon-"] { /* use !important to prevent issues with browser extensions that change fonts */ font-family: 'icomoon' !important; speak: never; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; /* Enable Ligatures ================ */ letter-spacing: 0; -webkit-font-feature-settings: "liga"; -moz-font-feature-settings: "liga=1"; -moz-font-feature-settings: "liga"; -ms-font-feature-settings: "liga" 1; font-feature-settings: "liga"; -webkit-font-variant-ligatures: discretionary-ligatures; font-variant-ligatures: discretionary-ligatures; /* Better Font Rendering =========== */ -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } .icomoon-loyalty:before { content: "\e94f"; } .icomoon-wallet1:before { content: "\e94e"; } .icomoon-wallet:before { content: "\e94d"; } .icomoon-add-outline:before { content: "\e90a"; } .icomoon-arrow-thin-down:before { content: "\e92c"; } .icomoon-arrow-thin-left:before { content: "\e92d"; } .icomoon-arrow-thin-right:before { content: "\e92e"; } .icomoon-arrow-thin-up:before { content: "\e92f"; } .icomoon-at-symbol:before { content: "\e93e"; } .icomoon-calendar:before { content: "\e93f"; } .icomoon-cheveron-down:before { content: "\e930"; } .icomoon-cheveron-left:before { content: "\e931"; } .icomoon-cheveron-right:before { content: "\e932"; } .icomoon-cheveron-up:before { content: "\e933"; } .icomoon-close:before { content: "\e934"; } .icomoon-dots-horizontal-triple:before { content: "\e940"; } .icomoon-edit-pencil:before { content: "\e941"; } .icomoon-envelope:before { content: "\e935"; } .icomoon-exclamation-outline:before { content: "\e936"; } .icomoon-filter1:before { content: "\e937"; } .icomoon-heart:before { content: "\e938"; } .icomoon-home:before { content: "\e939"; } .icomoon-menu:before { content: "\e942"; } .icomoon-refresh:before { content: "\e943"; } .icomoon-send:before { content: "\e944"; } .icomoon-share-alt:before { content: "\e93a"; } .icomoon-shopping-cart:before { content: "\e93b"; } .icomoon-timer:before { content: "\e945"; } .icomoon-trash:before { content: "\e946"; } .icomoon-user-solid-circle:before { content: "\e947"; } .icomoon-zoom-in:before { content: "\e93c"; } .icomoon-zoom-out:before { content: "\e93d"; } .icomoon-gift:before { content: "\e94a"; } .icomoon-user-login:before { content: "\e948"; } .icomoon-shopping-bag:before { content: "\e949"; } .icomoon-american-express .path1:before { content: "\e900"; color: rgb(0, 0, 0); opacity: 0.0700; } .icomoon-american-express .path2:before { content: "\e901"; margin-left: -1em; color: rgb(0, 111, 207); } .icomoon-american-express .path3:before { content: "\e902"; margin-left: -1em; color: rgb(255, 255, 255); } .icomoon-apple-pay .path1:before { content: "\e903"; color: rgb(0, 0, 0); } .icomoon-apple-pay .path2:before { content: "\e904"; margin-left: -1em; color: rgb(255, 255, 255); } .icomoon-apple-pay .path3:before { content: "\e905"; margin-left: -1em; color: rgb(0, 0, 0); } .icomoon-apple-pay .path4:before { content: "\e906"; margin-left: -1em; color: rgb(0, 0, 0); } .icomoon-apple-pay .path5:before { content: "\e907"; margin-left: -1em; color: rgb(0, 0, 0); } .icomoon-apple-pay .path6:before { content: "\e908"; margin-left: -1em; color: rgb(0, 0, 0); } .icomoon-apple-pay .path7:before { content: "\e909"; margin-left: -1em; color: rgb(0, 0, 0); } .icomoon-discover .path1:before { content: "\e90b"; color: rgb(0, 0, 0); opacity: 0.0700; } .icomoon-discover .path2:before { content: "\e90c"; margin-left: -1em; color: rgb(255, 255, 255); } .icomoon-discover .path3:before { content: "\e90d"; margin-left: -1em; color: rgb(35, 31, 32); } .icomoon-discover .path4:before { content: "\e90e"; margin-left: -1em; color: rgb(0, 0, 0); } .icomoon-discover .path5:before { content: "\e90f"; margin-left: -1em; color: rgb(0, 0, 0); opacity: 0.65; } .icomoon-discover .path6:before { content: "\e910"; margin-left: -1em; color: rgb(35, 31, 32); } .icomoon-discover .path7:before { content: "\e911"; margin-left: -1em; color: rgb(35, 31, 32); } .icomoon-discover .path8:before { content: "\e912"; margin-left: -1em; color: rgb(244, 129, 32); } .icomoon-facebook:before { content: "\e913"; } .icomoon-filter:before { content: "\e914"; } .icomoon-instagram:before { content: "\e915"; } .icomoon-master-card .path1:before { content: "\e916"; color: rgb(0, 0, 0); opacity: 0.0700; } .icomoon-master-card .path2:before { content: "\e917"; margin-left: -1em; color: rgb(255, 255, 255); } .icomoon-master-card .path3:before { content: "\e918"; margin-left: -1em; color: rgb(235, 0, 27); } .icomoon-master-card .path4:before { content: "\e919"; margin-left: -1em; color: rgb(247, 158, 27); } .icomoon-master-card .path5:before { content: "\e91a"; margin-left: -1em; color: rgb(255, 95, 0); } .icomoon-paypal .path1:before { content: "\e91b"; color: rgb(0, 0, 0); opacity: 0.0700; } .icomoon-paypal .path2:before { content: "\e91c"; margin-left: -1em; color: rgb(255, 255, 255); } .icomoon-paypal .path3:before { content: "\e91d"; margin-left: -1em; color: rgb(0, 48, 135); } .icomoon-paypal .path4:before { content: "\e91e"; margin-left: -1em; color: rgb(48, 134, 200); } .icomoon-paypal .path5:before { content: "\e91f"; margin-left: -1em; color: rgb(1, 33, 105); } .icomoon-pintrest:before { content: "\e920"; } .icomoon-search:before { content: "\e921"; } .icomoon-shopify-pay .path1:before { content: "\e922"; color: rgb(0, 0, 0); opacity: 0.0700; } .icomoon-shopify-pay .path2:before { content: "\e923"; margin-left: -1em; color: rgb(90, 49, 244); } .icomoon-shopify-pay .path3:before { content: "\e924"; margin-left: -1em; color: rgb(255, 255, 255); } .icomoon-tictok:before { content: "\e925"; } .icomoon-twitter:before { content: "\e926"; } .icomoon-viza .path1:before { content: "\e927"; color: rgb(0, 0, 0); opacity: 0.0700; } .icomoon-viza .path2:before { content: "\e928"; margin-left: -1em; color: rgb(255, 255, 255); } .icomoon-viza .path3:before { content: "\e929"; margin-left: -1em; color: rgb(20, 38, 136); } .icomoon-wishlist:before { content: "\e92a"; } .icomoon-youtube:before { content: "\e92b"; } .icomoon-credit-card:before { content: "\e94c"; } .icomoon-address-book:before { content: "\e94b"; } .icomoon-printer:before { content: "\e954"; } .icomoon-users:before { content: "\e972"; } .icomoon-user-plus:before { content: "\e973"; } .icomoon-lock:before { content: "\e98f"; } .icomoon-trophy:before { content: "\e99e"; } .icomoon-bookmark:before { content: "\e9d2"; } .icomoon-star-empty:before { content: "\e9d7"; } .icomoon-star-half:before { content: "\e9d8"; } .icomoon-star-full:before { content: "\e9d9"; } .icomoon-plus:before { content: "\ea0a"; }

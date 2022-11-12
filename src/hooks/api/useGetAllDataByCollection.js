@@ -36,6 +36,25 @@ export default function useGetAllDataByCollection ({sectionName}) {
                     )
                 }
             })
+        },
+        placeholderData: {
+            "collectionName": " ",
+            "alias": "",
+            "productCount": 6,
+            "collectionType": "Section",
+            "categoryBanner": null,
+            "categoryBannerImageAlt": null,
+            "categoryDescription": "<p>Freshen up your marketing mix with our latest releases!</p>\n",
+            "productnewvm": [
+                { "productGuid": "ich-0", "productcode": "-", "productname": " ", "productImageUrl": "", "detailURL": "", "price": 0.0, "strikePrice": 0.0 },
+                { "productGuid": "ich-1", "productcode": "-", "productname": " ", "productImageUrl": "", "detailURL": "", "price": 0.0, "strikePrice": 0.0 },
+                { "productGuid": "ich-2", "productcode": "-", "productname": " ", "productImageUrl": "", "detailURL": "", "price": 0.0, "strikePrice": 0.0 },
+                { "productGuid": "ich-3", "productcode": "-", "productname": " ", "productImageUrl": "", "detailURL": "", "price": 0.0, "strikePrice": 0.0 },
+                { "productGuid": "ich-4", "productcode": "-", "productname": " ", "productImageUrl": "", "detailURL": "", "price": 0.0, "strikePrice": 0.0 },
+                { "productGuid": "ich-5", "productcode": "-", "productname": " ", "productImageUrl": "", "detailURL": "", "price": 0.0, "strikePrice": 0.0 },
+                { "productGuid": "ich-6", "productcode": "-", "productname": " ", "productImageUrl": "", "detailURL": "", "price": 0.0, "strikePrice": 0.0 },
+                { "productGuid": "ich-7", "productcode": "-", "productname": " ", "productImageUrl": "", "detailURL": "", "price": 0.0, "strikePrice": 0.0 },
+            ]
         }
     })
 }

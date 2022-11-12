@@ -87,7 +87,7 @@ footer {
             .social_link { background: var(--clr-white); border:1px solid var(--clr-white); color:#282828; padding: 12px; display:block; line-height:1; border-radius:50%; width:100%; 
                     &:hover { transform: scale(0.8); }
                 }
-                .icon-facebook{padding: 0 3px;}
+                .icomoon-facebook{padding: 0 3px;}
             }
         }
     }
@@ -108,7 +108,7 @@ footer {
         @include media-max(sm) { justify-content: center; }
     }
     .payment_item { //margin: 5px 0 5px 15px; 
-        .icon-viza,.icon-master-card,.icon-american-express,.icon-apple-pay,.icon-discover,.icon-paypal,.icon-shopify-pay { font-size:48px;}
+        .icomoon-viza,.icomoon-master-card,.icomoon-american-express,.icomoon-apple-pay,.icomoon-discover,.icomoon-paypal,.icomoon-shopify-pay { font-size:48px;}
     }
 }
 

@@ -4,8 +4,7 @@ import ProductBreadcrumbs from "./ProductBreadcrumbs";
 import useScrollToTop from "../../hooks/useScrollToTop";
 
 import "./product.scss";
-import { useState } from "react";
-import { useEffect } from "react";
+import  React, { useState, useEffect } from "react";
 
 
 const Product = () => {
@@ -27,7 +26,7 @@ const Product = () => {
     }, [productDetails, activeSKU]);
 
     const defaultImage = window.Amazon_CDNUrl + "/" + window.websiteguid + "/StaticImages/default.png";
-    const imageInitialPath = window.Amazon_CDNUrl + "/" + window.websiteguid + "/Products/Medium/";
+    //const imageInitialPath = window.Amazon_CDNUrl + "/" + window.websiteguid + "/Products/Medium/";
     const imageThumbnailPath = window.Amazon_CDNUrl + "/" + window.websiteguid + "/Products/Thumbnail/";
     const onImgError = (c) => {
         c.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Crect width='280' height='280' fill='%23cccccc'/%3E%3C/svg%3E";
@@ -43,7 +42,7 @@ const Product = () => {
 
             <div className="product-images">
                 <figure>
-                    <img width="400" src={imageInitialPath + 
+                    <img width="400" src={imageThumbnailPath + 
                         (activeSKU === null
                             ? productDetails.productimageurl.split("/").pop()
                             : mainImage === ""
@@ -52,7 +51,7 @@ const Product = () => {
                         } alt={productDetails.productname} />
                 </figure>
                 {activeSKU !== null && <div className="media-list-images">
-                    {activeSKU.productmedialist.filter(m => m.mediatype === "Image").map(media => {
+                    {activeSKU.productmedialist?.filter(m => m.mediatype === "Image").map(media => {
                         return <div key={media.mediaguid} className="media-item">
                             <img width={150} alt={media.medianame} src={defaultImage} data-src={`${imageThumbnailPath}${media.media}`} className="img-fluid lazyload" onClick={() => setMainImage(media.media)} onError={(t) => onImgError(t)}/>
                         </div>            
@@ -61,18 +60,16 @@ const Product = () => {
             </div>
 
             <div className="product-details">
-                <small>{productDetails.productcode}</small>
-                <h1>{productDetails.productname}</h1>
-                <div className="reviewCount">
-                    <div className="rating visualRating">
-                        <span className="icon-star-empty"></span>
-                        <span className="icon-star-empty"></span>
-                        <span className="icon-star-empty"></span>
-                        <span className="icon-star-empty"></span>
-                        <span className="icon-star-empty"></span>
+                <small className="product-code">{productDetails.productcode}</small>
+                <h1 className="product-name">{productDetails.productname}</h1>
+                <div className="review-ratings">
+                    <div className="visual-rating" style={{
+                        backgroundImage: `linear-gradient(90deg, var(--main-color) 60%, #ccc 60%)` 
+                    }}>
+                        {new Array(5).fill(0).map((s,i) => <React.Fragment key={i}>&#9733;</React.Fragment>)}
                     </div>
-                    <span className="reviewCount review_text">0 Review</span>
-                    <button id="writeReviewBtn" className="btn-link">Write a Review</button>
+                    <div className="review-count">0 Review(s)</div>
+                    {/* <div id="write-review" className="btn-link">Write a Review</div> */}
                 </div>
                 {productDetails.strikeprice > 0 && <div className="discounted-price">
                     <span className="currencySymbol" />
@@ -80,7 +77,7 @@ const Product = () => {
                 </div>}
                 <div className="price">
                     <span className="currencySymbol" />
-                    {productDetails.price}
+                    {productDetails.price.toLocaleString("en-US")}
                 </div>
 
                 <div className="variants">
@@ -96,7 +93,7 @@ const Product = () => {
                 </div>
 
 
-                <div className="desc" dangerouslySetInnerHTML={{__html: productDetails.description}} />
+                <div className="product-desc" dangerouslySetInnerHTML={{__html: productDetails.description}} />
                 <div className="further-desc" dangerouslySetInnerHTML={{__html: productDetails.furtherdescription}} />
                 {productDetails.productdetails && <div className="details">
                     <table>

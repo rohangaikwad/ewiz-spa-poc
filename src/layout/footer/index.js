@@ -127,32 +127,32 @@ const Footer = () => {
                                 <ul className="social_list">
                                     <li className="social_item">
                                         <a className="social_link">
-                                            <span className="icon-facebook"></span>
+                                            <span className="icomoon-facebook"></span>
                                         </a>
                                     </li>
                                     <li className="social_item">
                                         <a className="social_link">
-                                            <span className="icon-instagram"></span>
+                                            <span className="icomoon-instagram"></span>
                                         </a>
                                     </li>
                                     <li className="social_item">
                                         <a className="social_link">
-                                            <span className="icon-pintrest"></span>
+                                            <span className="icomoon-pintrest"></span>
                                         </a>
                                     </li>
                                     <li className="social_item">
                                         <a className="social_link">
-                                            <span className="icon-tictok"></span>
+                                            <span className="icomoon-tictok"></span>
                                         </a>
                                     </li>
                                     <li className="social_item">
                                         <a className="social_link">
-                                            <span className="icon-youtube"></span>
+                                            <span className="icomoon-youtube"></span>
                                         </a>
                                     </li>
                                     <li className="social_item">
                                         <a className="social_link">
-                                            <span className="icon-twitter"></span>
+                                            <span className="icomoon-twitter"></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -172,25 +172,25 @@ const Footer = () => {
                         <div className="payment_wrapper">
                             <ul className="payment_list">
                                 <li className="payment_item">
-                                    <span className="icon-viza"><span className="path1"></span><span className="path2"></span><span className="path3"></span></span>
+                                    <span className="icomoon-viza"><span className="path1"></span><span className="path2"></span><span className="path3"></span></span>
                                 </li>
                                 <li className="payment_item">
-                                    <span className="icon-master-card"><span className="path1"></span><span className="path2"></span><span className="path3"></span><span className="path4"></span><span className="path5"></span></span>
+                                    <span className="icomoon-master-card"><span className="path1"></span><span className="path2"></span><span className="path3"></span><span className="path4"></span><span className="path5"></span></span>
                                 </li>
                                 <li className="payment_item">
-                                    <span className="icon-american-express"><span className="path1"></span><span className="path2"></span><span className="path3"></span></span>
+                                    <span className="icomoon-american-express"><span className="path1"></span><span className="path2"></span><span className="path3"></span></span>
                                 </li>
                                 <li className="payment_item">
-                                    <span className="icon-apple-pay"><span className="path1"></span><span className="path2"></span><span className="path3"></span><span className="path4"></span><span className="path5"></span><span className="path6"></span><span className="path7"></span></span>
+                                    <span className="icomoon-apple-pay"><span className="path1"></span><span className="path2"></span><span className="path3"></span><span className="path4"></span><span className="path5"></span><span className="path6"></span><span className="path7"></span></span>
                                 </li>
                                 <li className="payment_item">
-                                    <span className="icon-discover"><span className="path1"></span><span className="path2"></span><span className="path3"></span><span className="path4"></span><span className="path5"></span><span className="path6"></span><span className="path7"></span><span className="path8"></span></span>
+                                    <span className="icomoon-discover"><span className="path1"></span><span className="path2"></span><span className="path3"></span><span className="path4"></span><span className="path5"></span><span className="path6"></span><span className="path7"></span><span className="path8"></span></span>
                                 </li>
                                 <li className="payment_item">
-                                    <span className="icon-paypal"><span className="path1"></span><span className="path2"></span><span className="path3"></span><span className="path4"></span><span className="path5"></span></span>
+                                    <span className="icomoon-paypal"><span className="path1"></span><span className="path2"></span><span className="path3"></span><span className="path4"></span><span className="path5"></span></span>
                                 </li>
                                 <li className="payment_item">
-                                    <span className="icon-shopify-pay"><span className="path1"></span><span className="path2"></span><span className="path3"></span></span>
+                                    <span className="icomoon-shopify-pay"><span className="path1"></span><span className="path2"></span><span className="path3"></span></span>
                                 </li>
                             </ul>   
                         </div>

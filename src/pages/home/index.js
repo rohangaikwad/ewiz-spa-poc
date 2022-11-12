@@ -4,7 +4,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import ProductCard from "../../components/productCard";
 import useGetAllDataByCollection from "../../hooks/api/useGetAllDataByCollection";
 import useGetSlideshowData from "../../hooks/api/useGetSlideshowData";
-import 'swiper/css';
+import PlaceholderImageURL from "../../utils/PlaceholderImageURL";
+
+import "swiper/css";
 import "./home.scss";
 
 const onImgError = (c) => {
@@ -25,13 +27,13 @@ const MainSlideshow = ({ bannerGuid }) => {
           //onSlideChange={() => console.log('slide change')}
           //onSwiper={(swiper) => {console.log(swiper)}}
         >
-            {slideshowData.slideShowDetails.slideShowImages.map((slide, i) => <SwiperSlide key={i}>
+            {slideshowData.slideShowDetails.slideShowImages.map((slide, i) => <SwiperSlide key={slide.slideShowImageGuid}>
                 <Link to={slide.navigateUrl.replace("https://demo.ewizcommerce.com", "")}>
-                    <img alt={slide.altText} className="lazyload" data-src={slide.imageURL} />
+                    <img alt={slide.altText} className="lazyload" src={PlaceholderImageURL(1903, 969, "#ffffff")} data-src={slide.imageURL} />
                 </Link>
             </SwiperSlide>)}
         </Swiper>
-      );
+    );
 
 }
 
@@ -76,7 +78,7 @@ const SingleBanner = () => {
 
     return <div className="banner2">
         <a href={bannerData.redirectionLink}>
-            <img className="img-fluid lazyload" src={defaultImage} data-src={bannerData.bannerLink} alt={bannerData.bannerTitle} width="100%" onError={(t) => onImgError(t)} />
+            <img className="img-fluid lazyload" src={PlaceholderImageURL(1903, 969, "#ffffff")} data-src={bannerData.bannerLink} alt={bannerData.bannerTitle} width="100%" onError={(t) => onImgError(t)} />
         </a>
     </div>
 }
@@ -100,7 +102,7 @@ const ProductSection = ({ sectionName, sectionTitle, isCarousel }) => {
                 </a>
             </div>
             <div className={`product-main-wrapper ${isCarousel ? "owl-carousel carousel" + carouselUniqueId : ""}`} >
-                {collectionData.productnewvm.map((product, i) => <ProductCard productData={product} key={i} />)}
+                {collectionData.productnewvm.map((product, i) => <ProductCard productData={product} key={product.productGuid} />)}
             </div>
         </div>
     )
