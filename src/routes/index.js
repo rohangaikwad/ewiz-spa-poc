@@ -11,9 +11,9 @@ const RoutesComponent = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="category" element={<Category />}>
-            <Route path=":catName" element={<Category />} />
+            <Route path=":collectionAlias/:collectionGuid" element={<Category />} />
           </Route>
-          <Route path="product/:productName/:productCode" element={<Product />} />
+          <Route path="product/:productName/:productGuid" element={<Product />} />
         </Routes>
       </Layout>
     </BrowserRouter>

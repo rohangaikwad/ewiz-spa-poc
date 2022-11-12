@@ -13,7 +13,6 @@ export default function useGetCategoryMenuData () {
                 contentType: "application/json;charset=utf-8",
                 OnError: reject,
                 OnSuccess: ({data}) => {
-                    console.log(data)
                     resolve(data)
                 }
             });

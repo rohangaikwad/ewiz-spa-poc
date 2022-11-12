@@ -1,16 +1,16 @@
-import { Link, useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import AllCategories from "./AllCategories";
 import CategoryLanding from "./CategoryLanding";
 
 const Category = () => {
-    const {catName} = useParams();
+    const {collectionAlias, collectionGuid} = useParams();
     const {state: loc} = useLocation();
     //console.log(catName, loc)
 
     return <>
-        {catName === undefined
+        {collectionAlias === undefined
             ? <AllCategories />
-            : <CategoryLanding stateProps={loc} catName={catName}/>
+            : <CategoryLanding stateProps={loc} collectionAlias={collectionAlias} collectionGuid={collectionGuid}/>
         }
     </>
 }

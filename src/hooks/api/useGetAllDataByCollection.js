@@ -1,6 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import ObjKeysToLowerCase from "../../utils/ObjKeysToLowerCase";
 
 export default function useGetAllDataByCollection ({sectionName}) {
+    const queryClient = useQueryClient();
+
     return useQuery({
         queryKey: ['collectionData', sectionName],
         queryFn: async () => new Promise((resolve, reject) => {
@@ -15,12 +18,24 @@ export default function useGetAllDataByCollection ({sectionName}) {
                 contentType: "application/json;charset=utf-8",
                 OnError: reject,
                 OnSuccess: (res) => {
-                    if (res.statusCode == 500) reject(res);
-                    else resolve(res.data);
+                    if (res.statusCode === 500) reject(res);
+                    else resolve(res.data[0]);
                 }
             });
         }),
         retry: 0,
-        staleTime: 1000 * 60 * 10 // 10 minutes
+        staleTime: 1000 * 60 * 10, // 10 minutes
+        onSuccess: (data) => {
+            data.productnewvm.forEach(p => {
+                const existingData = queryClient.getQueryData(['ph-product', p.productGuid]);
+                if (typeof existingData === "undefined") {
+                    queryClient.setQueryData(
+                        ['ph-product', p.productGuid],
+                        ObjKeysToLowerCase(p),
+                        { staleTime: 0 }
+                    )
+                }
+            })
+        }
     })
 }

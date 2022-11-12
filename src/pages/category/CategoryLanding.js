@@ -2,17 +2,19 @@ import { Link } from "react-router-dom";
 import PlaceholderImageURL from "../../utils/PlaceholderImageURL";
 import useGetProductsData from "./../../hooks/api/useGetProductsData";
 import ProductCard from "./../../components/productCard";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
-const CategoryLanding = ({catName, stateProps}) => {
+const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
 
-    console.log(catName, stateProps)
+    //console.log(collectionAlias, collectionGuid, stateProps)
+    useScrollToTop();
 
     
     const initialProductBasketVM = {
         "ProductGuid": null,
         "WebsiteGuid": window.websiteguid,
         "LanguageGuid": window.languageuid,
-        "CategoryGuid": stateProps?.collectionGuid || document.getElementById("hidGuid").value,
+        "CategoryGuid": stateProps?.collectionGuid || collectionGuid || document.getElementById("hidGuid").value,
         "CategoryGUIDs": "",
         "SectionGUIDs": "",
         "BrandGUIDs": "",
@@ -78,20 +80,18 @@ const CategoryLanding = ({catName, stateProps}) => {
         c.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Crect width='280' height='280' fill='%23cccccc'/%3E%3C/svg%3E";
     }
 
-
-
     return <div className="container">
         <div className="categoryDetails">
             <div className="categoryBanner">
-                <img src={PlaceholderImageURL(1024,100, "#f1f1f1")} data-src={stateProps?.categoryBanner} alt={catName} className="lazyload ls-is-cached img-fluid" width="1000" height="200" />
+                <img src={PlaceholderImageURL(1170,100, "#f1f1f1")} data-src={stateProps?.categoryBanner} alt={collectionAlias} className="lazyload ls-is-cached img-fluid" width="1170" height="200" />
             </div>
-            <h1>{stateProps?.collectionName || catName}</h1>
+            <h1>{stateProps?.collectionName || collectionAlias}</h1>
             <div className="categoryDescription" dangerouslySetInnerHTML={{ __html: stateProps?.descriptionText }}></div>
 
             {stateProps !== null && stateProps?.subCategories !== null && <div className="subCategoryList">
                 {stateProps.subCategories.map((subCat,k) => {
                     const imageURL = window.Amazon_CDNUrl + "/" + window.websiteguid + "/Collections/Default/" + subCat.categoryImageURL
-                    return <Link state={subCat} key={k} to={subCat.categoryURL.split("/").pop()} className="subcategoryData">
+                    return <Link state={subCat} key={k} to={"/category/" + subCat.alias + "/" + subCat.collectionGuid} className="subcategoryData">
                         <img className="lazyload ls-is-cached img-fluid" src={PlaceholderImageURL(250,250,"#cccccc")} data-src={imageURL} alt={subCat.collectionName} onError={(t) => onImgError(t)} width="250" height="250" />
                         <div className="subCategory-name-count">
                             <h3>{subCat.collectionName}</h3>
@@ -103,7 +103,6 @@ const CategoryLanding = ({catName, stateProps}) => {
         </div>
         
         {(!isError && isSuccess) && <div className="productWrapper">
-            {console.log("component getting called")}
             {productData.map((product, i) => {
                 return <ProductCard productData={product} key={product.productGuid} />
             })}

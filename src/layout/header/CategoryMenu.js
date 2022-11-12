@@ -11,17 +11,17 @@ const CategoryMenu = () => {
         evt.target.parentElement.nextElementSibling.classList.toggle("show_sublist_menu")
     }
 
-    if (categoryList == null) return <>no {JSON.stringify(categoryList)}</>
+    if (categoryList == null) return <></>
 
     return <ul className="cat-list">
         {categoryList.map((category, i) => <li key={category.collectionName} className={"cat-item " + (category.subCategories != null ? "hasSubmenu" : "")}>
-            <Link to={"/category/" + category.categoryURL.split("/").pop()} state={category} className={`${category.subCategories != null ? "hasArrow" : ""}`}>
+            <Link to={"/category/" + category.alias + "/" + category.collectionGuid} state={category} className={`${category.subCategories != null ? "hasArrow" : ""}`}>
                 {category.collectionName}
                 {category.subCategories != null && <span className="arrow" onClick={(evt) => ToggleSubMenu(evt)}></span>}
             </Link>
             {category.subCategories != null && <ul className="subcat-list">
                 {category.subCategories.map((subCategory) => <li className="subcat-item" key={subCategory.collectionName}>
-                    <Link state={subCategory} to={"/category/" + subCategory.categoryURL.split("/").pop()}>
+                    <Link state={subCategory} to={"/category/" + subCategory.alias + "/" + subCategory.collectionGuid}>
                         {subCategory.collectionName}
                     </Link>
                 </li>)}

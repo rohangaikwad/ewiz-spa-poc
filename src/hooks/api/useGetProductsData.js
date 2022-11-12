@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import ObjKeysToLowerCase from "./../../utils/ObjKeysToLowerCase";
 
 export default function useGetProductsData ({wishlistCount = 0, productBasketVM}) {
     let queryClient = useQueryClient();
@@ -16,20 +17,23 @@ export default function useGetProductsData ({wishlistCount = 0, productBasketVM}
                 contentType: "application/json;charset=utf-8",
                 OnError: reject,
                 OnSuccess: (res) => {
-                    if (res.statusCode == 500) reject(res);
+                    if (res.statusCode === 500) reject(res);
                     else resolve(res.data);
                 }
             });
         }),
         retry: 1,
-        staleTime: 1000 * 60 * 10 ,// 10 minutes
+        staleTime: 1000 * 60 * 10, // 10 minutes
         onSuccess: (res) => {
-            console.log("success", res);
             res.forEach(p => {
-                queryClient.setQueryData(
-                    ['product', p.productGuid],
-                    p
-                )
+                const existingData = queryClient.getQueryData(['ph-product', p.productGuid]);
+                if (typeof existingData === "undefined") {
+                    queryClient.setQueryData(
+                        ['ph-product', p.productGuid],
+                        ObjKeysToLowerCase(p),
+                        { staleTime: 0 }
+                    )
+                }
             })
         }
 

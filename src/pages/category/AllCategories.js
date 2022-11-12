@@ -20,7 +20,7 @@ export default function AllCategories () {
         <h1>Categories</h1>
         <div id="category-list">
             {categoryList !== null && categoryList.map((cat, i) => <div key={i} className="main-category">
-                <Link state={cat} to={cat.categoryURL.split("/").pop()}>
+                <Link state={cat} to={"/category/" + cat.alias + "/" + cat.collectionGuid}>
                     <div className="category-image">
                         <img className="lazyload" src={defaultSVGImage} data-src={window.cdnURL + "/" + window.websiteguid + "/Collections/Default/" + cat.categoryImageURL} alt={cat.collectionName} width="250" height="250" />
                     </div>
@@ -30,7 +30,7 @@ export default function AllCategories () {
                 </Link>
                 {cat.subCategories && cat.subCategories.length > 0 && <ul>
                     {cat.subCategories.map((subCat,j) => <li key={j}>
-                        <Link state={subCat} to={subCat.categoryURL.split("/").pop()}>
+                        <Link state={subCat} to={"/category/" + subCat.alias + "/" + subCat.collectionGuid}>
                             <span>123{JSON.stringify(subCat.collectionName)}</span>
                             {subCat.collectionName} <span>({subCat.productCount})</span>
                         </Link>

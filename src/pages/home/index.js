@@ -5,6 +5,7 @@ import ProductCard from "../../components/productCard";
 import useGetAllDataByCollection from "../../hooks/api/useGetAllDataByCollection";
 import useGetSlideshowData from "../../hooks/api/useGetSlideshowData";
 import 'swiper/css';
+import "./home.scss";
 
 const onImgError = (c) => {
     c.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Crect width='280' height='280' fill='%23cccccc'/%3E%3C/svg%3E";
@@ -35,13 +36,12 @@ const MainSlideshow = ({ bannerGuid }) => {
 }
 
 const CategoryCarousel = ({ showCategoryDescription, categoryList }) => {
-    const [categoryCarouselRefState, setCategoryCarouselRefState] = useState(null);
 
     if (categoryList == null) return <></>
 
     return (
         <div className="container categoryCarouselWrapper">
-            <div className="categoryCarousel owl-carousel" ref={setCategoryCarouselRefState}>
+            <div className="categoryCarousel owl-carousel">
                 {categoryList != null && categoryList.map((category) => {
                     const imageURL = window.Amazon_CDNUrl + "/" + window.websiteguid + "/Collections/Default/" + category.categoryImageURL;
                     const categoryLink = "/" + category.categoryURL.split("/").pop();
@@ -76,7 +76,7 @@ const SingleBanner = () => {
 
     return <div className="banner2">
         <a href={bannerData.redirectionLink}>
-            <img className="img-fluid lazyload" src={defaultImage} data-src={bannerData.bannerLink} alt={bannerData.bannerTitle} onError={(t) => onImgError(t)} />
+            <img className="img-fluid lazyload" src={defaultImage} data-src={bannerData.bannerLink} alt={bannerData.bannerTitle} width="100%" onError={(t) => onImgError(t)} />
         </a>
     </div>
 }
@@ -100,7 +100,7 @@ const ProductSection = ({ sectionName, sectionTitle, isCarousel }) => {
                 </a>
             </div>
             <div className={`product-main-wrapper ${isCarousel ? "owl-carousel carousel" + carouselUniqueId : ""}`} >
-                {collectionData[0].productnewvm.map((product, i) => <ProductCard productData={product} key={i} />)}
+                {collectionData.productnewvm.map((product, i) => <ProductCard productData={product} key={i} />)}
             </div>
         </div>
     )
@@ -111,7 +111,7 @@ const HomePage = () => {
     return <>
         <div className="container"><MainSlideshow bannerGuid="5df73294-605a-45ee-9a72-fcfc57d2cabb" /></div>
         <CategoryCarousel showCategoryDescription={false} />
-        <ProductSection sectionName="best-sellers" sectionTitle="NEW ARRIVALS" isCarousel={false} />
+        <ProductSection sectionName="new-arrival" sectionTitle="NEW ARRIVALS" isCarousel={false} />
         <SingleBanner />
         <ProductSection sectionName="best-sellers" sectionTitle="TRENDING NOW" isCarousel={true} />
         <CategoryCarousel showCategoryDescription={true} />

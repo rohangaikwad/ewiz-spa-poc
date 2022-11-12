@@ -9,3 +9,35 @@ main#root {
 }
 
 #main-content { margin-bottom: 40px; }
+
+.breadcrumbs {
+    display: flex; margin-bottom: 30px;
+    .breadcrumb-item {
+        &:not(:last-child){
+            a { text-decoration: underline; }
+            &:after {
+                content: "/"; margin: 0 10px;
+            }
+        }
+        &:last-child { font-weight: 700; }
+    }
+}
+
+.media-list-images {
+    display: grid; gap: 15px; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); margin-top: 20px;
+    .media-item {
+        background-color: #f1f1f1; overflow: hidden; cursor: pointer; border-radius: 5px; padding: 10px;
+        img { width: 100%; }
+    }
+}
+
+.variants {
+    .variant-list {
+        display: grid; gap: 15px; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+        .variant-item {
+            background-color: #f1f1f1; overflow: hidden; cursor: pointer; border-radius: 5px; padding: 5px;  border: solid 1px #ccc;
+            &.active { border-color:#333; }
+            img { width: 100%; }
+        }
+    }
+}

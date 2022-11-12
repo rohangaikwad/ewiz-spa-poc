@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ObjKeysToLowerCase from "../../utils/ObjKeysToLowerCase";
 
 const ProductCard = ({ productData, isSubscribe = false }) => {
     //const cartCount = useSelector(state => state.cartCount);
@@ -11,7 +12,7 @@ const ProductCard = ({ productData, isSubscribe = false }) => {
 
         const updateWishlist = () => {
             window.callApi({
-                url: window.SaaS_Basket_Microservice_URL + "api/Wishlist/AddToWishlistJSON" + "/" + productDetail.productGuid,
+                url: window.SaaS_Basket_Microservice_URL + "api/Wishlist/AddToWishlistJSON/" + productDetail.productGuid,
                 type: "GET",
                 headers: { "LanguageGuid": window.languageuid, "WebsiteGuid": window.websiteguid, "currencyguid": window.currencyguid, "cookiedetails": window.cookiedetails },
                 isAsync: true,
@@ -73,7 +74,7 @@ const ProductCard = ({ productData, isSubscribe = false }) => {
                 OnError: (msg) => console.log("addToCart function ", msg),
                 OnSuccess: ({ statusCode }) => {
                     console.log("POSAddToCartresult", statusCode);
-                    if (statusCode == 200) {
+                    if (statusCode === 200) {
                         //GetBasketProductCount()
                         //dispatch({ type: "SET_CART_COUNT", payload: cartCount + 1 })
                         window.popupV3({
@@ -85,7 +86,7 @@ const ProductCard = ({ productData, isSubscribe = false }) => {
         }
 
         return <div className="action">
-            <a className="action-icon add-to-cart" onClick={addToCartHandler}><span className="action-name">Add to Cart</span></a>
+            <div className="action-icon add-to-cart" onClick={addToCartHandler}><span className="action-name">Add to Cart</span></div>
         </div>
     }
 
@@ -96,9 +97,11 @@ const ProductCard = ({ productData, isSubscribe = false }) => {
         </div>
     }
 
+    const lowercaseProductData = ObjKeysToLowerCase(productData);
+
     return <div className="card product-card">
         <div className="productImage">
-            <Link state={productData} to={"/" + productData?.detailURL.replace("https://demo.ewizcommerce.com/", "").replace(window.location.origin + "/", "")}>
+            <Link state={lowercaseProductData} to={"/product/" + productData.detailURL.split("/")[4] + "/" + productData.productGuid}>
                 <img className="lazyload ls-is-cached img-fluid" src={defaultSVGImage} data-src={productData.ProductImageUrl || productData.productImageURL || productData.productImageUrl} alt={productData.productname || productData.productName} />
             </Link>
             <div className="wishlist-and-view-main-div">
@@ -108,10 +111,10 @@ const ProductCard = ({ productData, isSubscribe = false }) => {
         </div>
         <div className="card-block">
             <div className="product-upload-day">
-                <Link state={productData} to={"/" + productData?.detailURL.replace("https://demo.ewizcommerce.com/", "")}>{productData.productcode || productData.productCode}</Link>
+                <Link state={lowercaseProductData} to={"/product/" + productData.detailURL.split("/")[4] + "/" + productData.productGuid}>{productData.productcode || productData.productCode}</Link>
             </div>
             <div className="product-name">
-                <Link state={productData} to={"/" + productData?.detailURL.replace("https://demo.ewizcommerce.com/", "")}>{productData.productname || productData.productName}</Link>
+                <Link state={lowercaseProductData} to={"/product/" + productData.detailURL.split("/")[4] + "/" + productData.productGuid}>{productData.productname || productData.productName}</Link>
             </div>
             <div className="product-price">
                 <div className="price">
