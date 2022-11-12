@@ -22,3 +22,4 @@ use react-virtual tanstack for infinite scrolling
 build solid js app
 build 2kb carousel
 pdp - use thumbnail image, wait for medium image to loas and then replace medium with it
+placeholder data
