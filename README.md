@@ -1,1 +1,1 @@
-https://gtmetrix.com/reports/dev.ewizsaas.com/LM8TQdzS/
+https://gtmetrix.com/reports/dev.ewizsaas.com/EO12gdqn/
