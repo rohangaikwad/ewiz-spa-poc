@@ -21,7 +21,7 @@ const MainSlideshow = ({ bannerGuid }) => {
             <img width="100%" alt={"slide.altText"} src={PlaceholderImageURL(1903, 969, "#ffffff")} />
         </Match>
         <Match when={slidershowQuery.isSuccess}>
-            <img width="100%" alt={slidershowQuery.data.slideShowDetails.slideShowImages[0].altText} class="lazyload" src={PlaceholderImageURL(1903, 969, "#ffffff")} data-src={slidershowQuery.data.slideShowDetails.slideShowImages[0].imageURL} />
+            <img width="100%" alt={slidershowQuery.data.slideShowDetails.slideShowImages[0].altText} src={slidershowQuery.data.slideShowDetails.slideShowImages[0].imageURL} />
         </Match>
     </Switch> 
 

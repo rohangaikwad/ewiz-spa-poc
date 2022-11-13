@@ -1,4 +1,5 @@
 import { createQuery } from "@tanstack/solid-query";
+import PlaceholderImageURL from "../../utils/PlaceholderImageURL";
 
 export default function useGetSlideshowData ({guid}) {
     return createQuery(
@@ -30,7 +31,7 @@ export default function useGetSlideshowData ({guid}) {
                         "navigateUrl": "",
                         "altText": "",
                         "overlayText": "",
-                        "imageURL": "1"
+                        "imageURL": PlaceholderImageURL(1903, 969, "#ffffff")
                     }]
                 }
             }
