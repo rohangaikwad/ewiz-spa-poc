@@ -17,6 +17,7 @@ export default function useGetProductDetails ({productGuid, wishlistCount = 0, p
                 contentType: "application/json;charset=utf-8",
                 OnError: reject,
                 OnSuccess: (res) => {
+                    console.log(res)
                     if (res.statusCode === 500) reject(res);
                     else {
                         //setTimeout(() => {
@@ -34,8 +35,11 @@ export default function useGetProductDetails ({productGuid, wishlistCount = 0, p
             staleTime: 1000 * 60 * 10, // 10 minutes
             placeholderData: () => {
                 let data = typeof pProps !== "undefined" ? pProps : queryClient.getQueryData(['ph-product', productGuid]);
-                data["collections"] = data.collectionguids;
-                return data;
+                if (data !== null) {
+                    data["collections"] = data.collectionguids;
+                    console.log("placeholder", data);
+                    return data;
+                }
             }
         }
     )

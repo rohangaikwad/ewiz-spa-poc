@@ -5,7 +5,7 @@ import CategoryLanding from "./CategoryLanding";
 const Category = () => {
     const params = useParams();
     const location = useLocation();
-    console.log(params.collectionAlias);
+    //console.log(params.collectionAlias);
 
     return <>
         {/* <pre>{JSON.stringify(location.state, null, 4)}</pre> */}

@@ -12,6 +12,7 @@ const RoutesComponent = () => {
           <Route path="/category" component={Category} />
           <Route path="/category/:collectionAlias/:collectionGuid" component={Category} />
           <Route path="/product/:productName/:productGuid" component={Product} />
+          <Route path="/*" component={Home} />
         </Routes>
       </Layout>
   )

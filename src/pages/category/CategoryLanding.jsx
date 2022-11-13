@@ -78,7 +78,7 @@ const CategoryLanding = ({params, stateProps}) => {
     const [query, setQuery] = createSignal(null);
 
     createEffect(() => {
-        console.log(params.collectionGuid);
+        //console.log(params.collectionGuid);
         initialProductBasketVM["CategoryGuid"] = params.collectionGuid;
         setQuery(useGetProductsData({wishlistCount: 0, productBasketVM: initialProductBasketVM}))
 

@@ -22,7 +22,7 @@ const ProductBreadcrumbs = (props) => {
             return list;
         }
 
-        let collections = flatten(props.query().data.collections, []).map(_c => {
+        let collections = flatten(props.query.data.collections, []).map(_c => {
             return categoryList.filter(x => x.collectionGuid === _c.collectionguid)[0]
         });
 
@@ -42,7 +42,7 @@ const ProductBreadcrumbs = (props) => {
         {/* {collections.map((c,k) => <li class="breadcrumb-item" key={k}>
             <Link state={c} href={"/category/" + c.alias + "/" + c.collectionGuid}>{c.collectionName}</Link>
         </li>)} */}
-        <li class="breadcrumb-item">{props.query().data.productname}</li>
+        <li class="breadcrumb-item">{props.query.data !== null && props.query.data.productname}</li>
     </ul>
 }
 
