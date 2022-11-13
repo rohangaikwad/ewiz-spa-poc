@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import PlaceholderImageURL from "../../utils/PlaceholderImageURL";
 
 export default function useGetSlideshowData ({guid}) {
     return useQuery({
@@ -29,7 +30,7 @@ export default function useGetSlideshowData ({guid}) {
                     "navigateUrl": "",
                     "altText": "",
                     "overlayText": "",
-                    "imageURL": "1"
+                    "imageURL": PlaceholderImageURL(1903, 969, "#f1f1f1")
                 }]
             }
         }

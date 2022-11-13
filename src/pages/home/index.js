@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
 import ProductCard from "../../components/productCard";
 import useGetAllDataByCollection from "../../hooks/api/useGetAllDataByCollection";
 import useGetSlideshowData from "../../hooks/api/useGetSlideshowData";
 import PlaceholderImageURL from "../../utils/PlaceholderImageURL";
 
-import "swiper/css";
 import "./home.scss";
 
 const onImgError = (c) => {
@@ -20,21 +18,9 @@ const MainSlideshow = ({ bannerGuid }) => {
 
     if (isError || !isSuccess) return <></>
 
-    return (
-        <Swiper
-          spaceBetween={0}
-          slidesPerView={1}
-          //onSlideChange={() => console.log('slide change')}
-          //onSwiper={(swiper) => {console.log(swiper)}}
-        >
-            {slideshowData.slideShowDetails.slideShowImages.map((slide, i) => <SwiperSlide key={slide.slideShowImageGuid}>
-                <Link to={slide.navigateUrl.replace("https://demo.ewizcommerce.com", "")}>
-                    <img alt={slide.altText} className="lazyload" src={PlaceholderImageURL(1903, 969, "#ffffff")} data-src={slide.imageURL} />
-                </Link>
-            </SwiperSlide>)}
-        </Swiper>
-    );
-
+    return (!isSuccess) 
+        ? <img width="100%" alt={"slide.altText"} src={PlaceholderImageURL(1903, 969, "#f1f1f1")} />
+        : <img width="100%" alt={slideshowData.slideShowDetails.slideShowImages[0].altText} src={slideshowData.slideShowDetails.slideShowImages[0].imageURL} /> 
 }
 
 const CategoryCarousel = ({ showCategoryDescription, categoryList }) => {
