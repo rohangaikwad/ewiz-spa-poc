@@ -18,7 +18,7 @@ const MainSlideshow = ({ bannerGuid }) => {
 
     return <Switch>
         <Match when={slidershowQuery.isLoading}>
-            <img width="100%" alt={"slide.altText"} src={PlaceholderImageURL(1903, 969, "#ffffff")} />
+            <img width="100%" alt={"slide.altText"} src={PlaceholderImageURL(1903, 969, "#f1f1f1")} />
         </Match>
         <Match when={slidershowQuery.isSuccess}>
             <img width="100%" alt={slidershowQuery.data.slideShowDetails.slideShowImages[0].altText} src={slidershowQuery.data.slideShowDetails.slideShowImages[0].imageURL} />
