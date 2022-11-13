@@ -14,6 +14,7 @@ const ProductBreadcrumbs = (props) => {
         }).flat()
 
         let flatten = (c, list) => {
+            if(c === undefined) return list;
             list.push(c[0]);
             if (c[0].subcategories != null) {
                 list = flatten(c[0].subcategories, list)
