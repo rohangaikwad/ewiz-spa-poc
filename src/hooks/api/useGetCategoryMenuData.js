@@ -1,9 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { createQuery } from "@tanstack/solid-query";
 
 export default function useGetCategoryMenuData () {
-    return useQuery({
-        queryKey: ['categoryMenuData'],
-        queryFn: async () => new Promise((resolve, reject) => {
+
+    return createQuery(
+        () => ['categoryMenuData'],
+        async () => new Promise((resolve, reject) => {
             window.callApi({
                 url: window.SaaS_ProductListing_Microservice_URL + "api/Products/GetCategoryMenu",
                 type: "GET",
@@ -16,7 +17,9 @@ export default function useGetCategoryMenuData () {
                     resolve(data)
                 }
             });
-        }),        
-        staleTime: 1000 * 60 * 10 // 10 minutes
-    })
+        }),
+        {
+            staleTime: 1000 * 60 * 10 // 10 minutes
+        }
+    )
 }

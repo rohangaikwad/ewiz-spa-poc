@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link } from "@solidjs/router";
 import CategoryMenu from "./CategoryMenu";
 
 export default function Nav () {
     return <nav>
-        <Link to="/category" id="all-cat">
-            <i className="icon-grid"></i>Browse All
+        <Link href="/category" id="all-cat">
+            <i class="icon-grid"></i>Browse All
         </Link>
-        <div className="category-menu desktop">
+        <div class="category-menu desktop">
             <CategoryMenu />
         </div>
-        <div className="quick-links">
+        <div class="quick-links">
             {window.EmailAddress != null && <a href={window.location.origin + "/order/customerorderreport"}>My Orders</a>}
             <a href="#">Offers</a>
             <a href="#">Gift Cards</a>

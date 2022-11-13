@@ -12,10 +12,10 @@ main#root {
     min-height: 100vh;
 }
 
-#main-content { margin-bottom: 40px; }
+#main-content { margin: 40px 0; }
 
 .breadcrumbs {
-    display: flex; margin-bottom: 30px;
+    display: flex; margin-bottom: 30px; text-transform: capitalize;
     .breadcrumb-item {
         &:not(:last-child){
             a { border-bottom: dashed 1px #666; }

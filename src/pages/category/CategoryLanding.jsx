@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link } from "@solidjs/router";
 import PlaceholderImageURL from "../../utils/PlaceholderImageURL";
 import useGetProductsData from "./../../hooks/api/useGetProductsData";
 import ProductCard from "./../../components/productCard";
 import useScrollToTop from "../../hooks/useScrollToTop";
+import { createEffect, createSignal, Match, Switch } from 'solid-js';
 
-const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
+const CategoryLanding = ({params, stateProps}) => {
 
     //console.log(collectionAlias, collectionGuid, stateProps)
     useScrollToTop();
@@ -14,7 +15,7 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
         "ProductGuid": null,
         "WebsiteGuid": window.websiteguid,
         "LanguageGuid": window.languageuid,
-        "CategoryGuid": stateProps?.collectionGuid || collectionGuid || document.getElementById("hidGuid").value,
+        "CategoryGuid": stateProps?.collectionGuid || params.collectionGuid || document.getElementById("hidGuid").value,
         "CategoryGUIDs": "",
         "SectionGUIDs": "",
         "BrandGUIDs": "",
@@ -74,39 +75,54 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
         "IsPriceMenu": false,
         "SearchWithinCategory": ''
     };
-    const {data: productData, isError, isSuccess} = useGetProductsData({wishlistCount: 0, productBasketVM: initialProductBasketVM})
+    const [query, setQuery] = createSignal(null);
+
+    createEffect(() => {
+        console.log(params.collectionGuid);
+        initialProductBasketVM["CategoryGuid"] = params.collectionGuid;
+        setQuery(useGetProductsData({wishlistCount: 0, productBasketVM: initialProductBasketVM}))
+
+        document.querySelector(".categoryDescription").innerHTML = stateProps.state.descriptionText;
+    })
 
     const onImgError = (c) => {
         c.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Crect width='280' height='280' fill='%23cccccc'/%3E%3C/svg%3E";
     }
 
-    return <div className="container">
-        <div className="categoryDetails">
-            <div className="categoryBanner">
-                <img src={PlaceholderImageURL(1170,100, "#f1f1f1")} data-src={stateProps?.categoryBanner} alt={collectionAlias} className="lazyload ls-is-cached img-fluid" width="1170" height="200" />
+    return <div class="container">
+        {/* {JSON.stringify(params)} */}
+        <div class="categoryDetails">
+            <div class="categoryBanner">
+                <img src={PlaceholderImageURL(1170,100, "#f1f1f1")} data-src={stateProps.state?.categoryBanner} alt={params.collectionAlias} class="lazyload ls-is-cached img-fluid" width="1170" height="100" />
             </div>
-            <h1>{stateProps?.collectionName || collectionAlias}</h1>
-            <div className="categoryDescription" dangerouslySetInnerHTML={{ __html: stateProps?.descriptionText }}></div>
+            <h1>{stateProps.state?.collectionName || params.collectionAlias}</h1>
+            <div class="categoryDescription"></div>
 
-            {stateProps !== null && stateProps?.subCategories !== null && <div className="subCategoryList">
-                {stateProps.subCategories.map((subCat,k) => {
-                    const imageURL = window.Amazon_CDNUrl + "/" + window.websiteguid + "/Collections/Default/" + subCat.categoryImageURL
-                    return <Link state={subCat} key={k} to={"/category/" + subCat.alias + "/" + subCat.collectionGuid} className="subcategoryData">
-                        <img className="lazyload ls-is-cached img-fluid" src={PlaceholderImageURL(250,250,"#cccccc")} data-src={imageURL} alt={subCat.collectionName} onError={(t) => onImgError(t)} width="250" height="250" />
-                        <div className="subCategory-name-count">
-                            <h3>{subCat.collectionName}</h3>
-                            <span>({subCat.productCount})</span>
+            {stateProps.state.subCategories !== null && <div class="subCategoryList">
+                {stateProps.state?.subCategories?.map(s => {
+                    const imageURL = window.Amazon_CDNUrl + "/" + window.websiteguid + "/Collections/Default/" + s.categoryImageURL;
+                    return <Link state={s} href={"/category/" + s.alias + "/" + s.collectionGuid} class="subcategoryData">
+                        <img width="100%" class="lazyload ls-is-cached img-fluid" src={PlaceholderImageURL(250,250,"#cccccc")} data-src={imageURL} alt={s.collectionName} onError={(t) => onImgError(t)} />
+                        <div class="subCategory-name-count">
+                            {s.collectionName}<span>({s.productCount})</span>
                         </div>
                     </Link>
                 })}
             </div>}
         </div>
         
-        {(!isError && isSuccess) && <div className="productWrapper">
-            {productData.map((product, i) => {
-                return <ProductCard productData={product} key={product.productGuid} />
-            })}
-        </div>}
+        {query() !== null && <Switch>
+            <Match when={query().isLoading}>Loading...</Match>
+            <Match when={query().isError}>Error: {query.error.message}</Match>
+            <Match when={query().isSuccess}>
+                <h2>{query().data.length} Item(s)</h2>
+                <div class="productWrapper">
+                    {query().data.map(product => {
+                        return <ProductCard productData={product} />
+                    })}
+                </div>
+            </Match>
+        </Switch>}
     </div>
 }
 
@@ -149,11 +165,11 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
 //         });
 //     },[productBasketVM])
 
-//     if (productData.length == 0) return <div className="noProducts">No Products found.</div>
+//     if (productData.length == 0) return <div class="noProducts">No Products found.</div>
 
     
     
-//     return <div className="productWrapper" data-product={productPerRow}>
+//     return <div class="productWrapper" data-product={productPerRow}>
 //         {console.log("component getting called")}
 //         {productData.map((product, i) => {
 //             return <ProductCard productData={product} key={i} />
@@ -229,32 +245,32 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
 //         setPriceFitler(priceData)
 //     }
 
-//     return <div className="price-filter filter">
-//         <h4 className="filterHeading" data-toggle="collapse" href="#priceCollapse"  aria-expanded="false">
+//     return <div class="price-filter filter">
+//         <h4 class="filterHeading" data-toggle="collapse" href="#priceCollapse"  aria-expanded="false">
 //             <a href="javascript:void(0)">Price</a>
 //         </h4>
-//         <div className="panel-collapse filter-list collapse" id="priceCollapse">
-//             <div className="priceFilterWrapper">
-//                 <input type="range" min={min} max={max} value={minVal} ref={minValRef} onChange={(event)=>minValueChange(event)} className="thumb thumb--zindex-3" />
-//                 <input type="range" min={min} max={max} value={maxVal} ref={maxValRef} onChange={(event)=>maxValueChange(event)} className="thumb thumb--zindex-4" />
+//         <div class="panel-collapse filter-list collapse" id="priceCollapse">
+//             <div class="priceFilterWrapper">
+//                 <input type="range" min={min} max={max} value={minVal} ref={minValRef} onChange={(event)=>minValueChange(event)} class="thumb thumb--zindex-3" />
+//                 <input type="range" min={min} max={max} value={maxVal} ref={maxValRef} onChange={(event)=>maxValueChange(event)} class="thumb thumb--zindex-4" />
 //             </div>
-//             <div className="slider">
-//                 <div className="slider__track" />
-//                 <div ref={range} className="slider__range" />
+//             <div class="slider">
+//                 <div class="slider__track" />
+//                 <div ref={range} class="slider__range" />
 //             </div>
-//             <div className="priceInput mt-4">
-//                 <div className="priceRange_wrapper">
-//                     <span className="currencySymbol"></span>
-//                     <input className="form-control" pattern="[0-9]" id="MinValueInput" min={min} max={max} value={minVal} name="MinValueInput"  type="number" onChange={(event)=>minValueChange(event)}/>
+//             <div class="priceInput mt-4">
+//                 <div class="priceRange_wrapper">
+//                     <span class="currencySymbol"></span>
+//                     <input class="form-control" pattern="[0-9]" id="MinValueInput" min={min} max={max} value={minVal} name="MinValueInput"  type="number" onChange={(event)=>minValueChange(event)}/>
 //                 </div>
-//                 <span className="txt_to">to</span>
-//                 <div className="priceRange_wrapper">
-//                     <span className="currencySymbol"></span>
-//                     <input className="form-control" pattern="[0-9]" id="MaxValueInput" min={min} max={max} value={maxVal} name="MaxValueInput"  type="number" onChange={(event)=>maxValueChange(event)}/>
+//                 <span class="txt_to">to</span>
+//                 <div class="priceRange_wrapper">
+//                     <span class="currencySymbol"></span>
+//                     <input class="form-control" pattern="[0-9]" id="MaxValueInput" min={min} max={max} value={maxVal} name="MaxValueInput"  type="number" onChange={(event)=>maxValueChange(event)}/>
 //                 </div>
 //             </div>
-//             <div className="applyFilter">
-//                 <button type="button" onClick={applyFilterHandler} className="btn btnApplyPriceFilter">Apply</button>
+//             <div class="applyFilter">
+//                 <button type="button" onClick={applyFilterHandler} class="btn btnApplyPriceFilter">Apply</button>
 //             </div>
 //         </div>
 //     </div>
@@ -349,73 +365,73 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
 
 //     const getFilterCount = useCallback((filterName)=>{
 //         const count = selectedFilter.filter(filter => filter.filterName == filterName).length 
-//         if(count > 0) return <span className="count">({count})</span>
+//         if(count > 0) return <span class="count">({count})</span>
 //         return null
 //     }, [selectedFilter])
 
 //     if(filterData == null) return <Fragment />
     
-//     return <div className="sidebar_outer_wrapper">
-//         <div className="sidebar_inner_wrapper">
-//             <div className="sidebar_mobile">
-//                 <span className="sidebar_text">Sidebar</span>
-//                 <span className="sidebar_icon" onClick={toggleMobileFilter}></span>
+//     return <div class="sidebar_outer_wrapper">
+//         <div class="sidebar_inner_wrapper">
+//             <div class="sidebar_mobile">
+//                 <span class="sidebar_text">Sidebar</span>
+//                 <span class="sidebar_icon" onClick={toggleMobileFilter}></span>
 //             </div>
-//             <div className="filterWrapper">
-//                 <div className="category-filter filter">
-//                     <h4 className="filterHeading" data-toggle="collapse" href="#categoryCollapse" aria-expanded="true">
+//             <div class="filterWrapper">
+//                 <div class="category-filter filter">
+//                     <h4 class="filterHeading" data-toggle="collapse" href="#categoryCollapse" aria-expanded="true">
 //                         <a href="javascript:void(0)">Category </a>
 //                     </h4>
-//                     <div className="panel-collapse filter-list collapse show" id="categoryCollapse">
-//                         <ul className="categoryFilterUl">
+//                     <div class="panel-collapse filter-list collapse show" id="categoryCollapse">
+//                         <ul class="categoryFilterUl">
 //                             {categoryData.map((category,i)=>{
-//                                 return <li key={i} className={`${topLevelGuid==category.collectionGuid ? "active": ""}`}>
-//                                     <a className="link"  href={category.categoryURL}>{category.collectionName}</a>
+//                                 return <li key={i} class={`${topLevelGuid==category.collectionGuid ? "active": ""}`}>
+//                                     <a class="link"  href={category.categoryURL}>{category.collectionName}</a>
 //                                 </li>
 //                             })}
 //                         </ul>
 //                     </div>
 //                 </div>
-//                 {selectedFilter.length != 0 && <div className="selected-filter filter">
-//                     <h4 className="filterHeading color_option">
-//                         <a className="refined_by" href="javascript:void(0)">Refined By</a>
-//                         <div className="clearColors" onClick={resetFilterHandler}>clear All</div>
+//                 {selectedFilter.length != 0 && <div class="selected-filter filter">
+//                     <h4 class="filterHeading color_option">
+//                         <a class="refined_by" href="javascript:void(0)">Refined By</a>
+//                         <div class="clearColors" onClick={resetFilterHandler}>clear All</div>
 //                     </h4>
-//                     <div className="resultSearchProductCount">{productCount} {productCount > 1 ? "results" : "result"}</div>
-//                     <div className="selectedFilter">
+//                     <div class="resultSearchProductCount">{productCount} {productCount > 1 ? "results" : "result"}</div>
+//                     <div class="selectedFilter">
 //                         {selectedFilter.map((filter)=>{
-//                             return <div className="filter_label" data-type={filter.filterName} data-label={filter.label} onClick={()=>filter.type =="price" ?  removePriceFilterhandler() : removeFilterHandler(filter.label)}>
-//                                 <span className="refinedFilterName">{filter.label}</span>
+//                             return <div class="filter_label" data-type={filter.filterName} data-label={filter.label} onClick={()=>filter.type =="price" ?  removePriceFilterhandler() : removeFilterHandler(filter.label)}>
+//                                 <span class="refinedFilterName">{filter.label}</span>
 //                             </div>
 //                         })}
 //                     </div>
 //                 </div>}
 //                 {filterData.varintForFilters != null && <Fragment>
-//                     <div className="size-filter filter">
-//                         <h4 className="filterHeading" data-toggle="collapse" href="#sizeCollapse" aria-expanded="false">
+//                     <div class="size-filter filter">
+//                         <h4 class="filterHeading" data-toggle="collapse" href="#sizeCollapse" aria-expanded="false">
 //                             <a href="javascript:void(0)">Size {getFilterCount("size")}</a>
 //                         </h4>
-//                         <div className="panel-collapse filter-list collapse" id="sizeCollapse">
+//                         <div class="panel-collapse filter-list collapse" id="sizeCollapse">
 //                             {filterData.varintForFilters.map((size,i)=>{
 //                                 return <label for={size.variantSize}>
 //                                     <input type="checkbox" id={size.variantSize} onClick={(e)=>filterChangeHandler("VariantSize",size.variantSize,e.target.checked)}/>
-//                                     <span className="sizeText">{size.variantSize}</span>
+//                                     <span class="sizeText">{size.variantSize}</span>
 //                                 </label>
 //                             })}
 //                         </div>
 //                     </div>
 //                 </Fragment>}
 //                 {filterData.colorsDataWithCount != null && <Fragment>
-//                     <div className="color-filter filter">
-//                         <h4 className="filterHeading" data-toggle="collapse" href="#colorCollapse" aria-expanded="false">
+//                     <div class="color-filter filter">
+//                         <h4 class="filterHeading" data-toggle="collapse" href="#colorCollapse" aria-expanded="false">
 //                             <a href="javascript:void(0)">Color {getFilterCount("color")}</a>
 //                         </h4>
-//                         <div className="panel-collapse filter-list collapse" id="colorCollapse">
+//                         <div class="panel-collapse filter-list collapse" id="colorCollapse">
 //                             {filterData.colorsDataWithCount.map((color,i)=>{
 //                                 return <label for={color.masterColorGuid}>
 //                                     <input type="checkbox" id={color.masterColorName} onClick={(e)=>filterChangeHandler("VariantName",color.masterColorName,e.target.checked)}/>
-//                                     <span className="color" style={{backgroundColor: color.masterColorHexValue}}></span>
-//                                     <span className="colorText">{color.masterColorName}</span>
+//                                     <span class="color" style={{backgroundColor: color.masterColorHexValue}}></span>
+//                                     <span class="colorText">{color.masterColorName}</span>
 //                                 </label>
 //                             })}
 //                         </div>
@@ -432,7 +448,7 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
 //     const categoriesData = useSelector(state => state.categoryData)
 //     const mainCategoryDetail = categoriesData.filter(cat => cat.collectionGuid == topLevelGuid)[0];
 
-//     return <div className="breadCrumbWrapper">
+//     return <div class="breadCrumbWrapper">
 //         <ul class="breadcrumb">
 //             <li class="breadcrumb-item"><a href={window.location.origin}>Home</a></li>
 //             {!isCategoryLandingPage && <li class="breadcrumb-item"><a href={`${window.location.origin}/category/${mainCategoryDetail.alias}`}>{mainCategoryDetail.collectionName}</a></li>}
@@ -449,19 +465,19 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
 //         setProduct(count)
 
 //     }
-//     return <div className="productViewOptions">
-//         <span className="optionHeading">View</span>
-//         <div className="viewOptions">
-//             <div className="toolbarIcon" onClick={()=>setProd(1)}>
+//     return <div class="productViewOptions">
+//         <span class="optionHeading">View</span>
+//         <div class="viewOptions">
+//             <div class="toolbarIcon" onClick={()=>setProd(1)}>
 //                 <i></i>
 //                 <i></i>
 //                 <i></i>
 //             </div>
-//             <div className="toolbarIcon vertical_icon" onClick={()=>setProd(2)}>
+//             <div class="toolbarIcon vertical_icon" onClick={()=>setProd(2)}>
 //                 <i></i>
 //                 <i></i>
 //             </div>
-//             <div className="toolbarIcon" onClick={()=>setProd(3)}>
+//             <div class="toolbarIcon" onClick={()=>setProd(3)}>
 //                 <i></i>
 //                 <i></i>
 //                 <i></i>
@@ -503,11 +519,11 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
 //     },[mobileSortVisible])
 
 //     return <Fragment>
-//         <div className={`sort_alphabet_wrapper ${mobileSortVisible ? "mobile-sort-visible": ""}`}>
+//         <div class={`sort_alphabet_wrapper ${mobileSortVisible ? "mobile-sort-visible": ""}`}>
             
-//             <div className="productSortOptions sort_alphabet">
-//                 <span className="optionHeading" onClick={toggleMobileSort}>Sort by</span>
-//                 <div className="viewOptions viewSortBy">
+//             <div class="productSortOptions sort_alphabet">
+//                 <span class="optionHeading" onClick={toggleMobileSort}>Sort by</span>
+//                 <div class="viewOptions viewSortBy">
 //                     <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
 //                         <span>{selectedSortBy}</span>
 //                     </button>
@@ -520,10 +536,10 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
 //                 </div>
 //             </div>
 //         </div>
-//         {mobileSortVisible && <div className="backDrop" onClick={toggleMobileSort}></div>}
-//         <div className="sort_mobile" onClick={toggleMobileSort}>
-//             <span className="sort_text">Sort</span>
-//             <span className="sort_icon"></span>
+//         {mobileSortVisible && <div class="backDrop" onClick={toggleMobileSort}></div>}
+//         <div class="sort_mobile" onClick={toggleMobileSort}>
+//             <span class="sort_text">Sort</span>
+//             <span class="sort_icon"></span>
 //         </div>
 //     </Fragment>
 // }
@@ -536,9 +552,9 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
 //         changeItemPerPage(_itemsPerPage)
 //     }
 
-//     return <div className="productSortOptions items_per_page">
-//         <span className="optionHeading">Items per Page</span>
-//         <div className="viewOptions">
+//     return <div class="productSortOptions items_per_page">
+//         <span class="optionHeading">Items per Page</span>
+//         <div class="viewOptions">
 //             <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
 //                 <span>{itemsPerPage}</span>
 //             </button>
@@ -563,12 +579,12 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
     
 //     if(subCategoryList == null) return <Fragment />
 
-//     return <div className="subCategoryList">
+//     return <div class="subCategoryList">
 //         {subCategoryList.map((subCategoryData)=>{
 //             const imageURL = Amazon_CDNUrl + "/" + websiteguid + "/Collections/Default/" + subCategoryData.categoryImageURL
-//             return <a href={subCategoryData.categoryURL} className="subcategoryData">
-//                 <img className="lazyload ls-is-cached img-fluid" src={defaultImage} data-src={imageURL} alt={subCategoryData.collectionName} onError={(t) => onImgError(t)} width="250" height="250" />
-//                 <div className="subCategory-name-count">
+//             return <a href={subCategoryData.categoryURL} class="subcategoryData">
+//                 <img class="lazyload ls-is-cached img-fluid" src={defaultImage} data-src={imageURL} alt={subCategoryData.collectionName} onError={(t) => onImgError(t)} width="250" height="250" />
+//                 <div class="subCategory-name-count">
 //                     <h3>{subCategoryData.collectionName}</h3>
 //                     <span>({subCategoryData.productCount})</span>
 //                 </div>
@@ -588,16 +604,16 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
     
 //     return <ul className='pagination d-flex'>
 //         {pageNo >= 2 && <Fragment>
-//             <li className={`page-link page-first`} onClick={()=>setPageNo(1)}>First</li>
-//             <li className={`page-link page-prev`} onClick={()=>setPageNo(pageNo-1)}>Prevoius</li>
+//             <li class={`page-link page-first`} onClick={()=>setPageNo(1)}>First</li>
+//             <li class={`page-link page-prev`} onClick={()=>setPageNo(pageNo-1)}>Prevoius</li>
 //         </Fragment>}
 //         {new Array(totalPageCount).fill('').map((count,i)=>{
 //             const _pageNo = i+1
-//             return <li className={`page-link ${pageNo == _pageNo ? "active" : ""}`} onClick={()=>setPageNo(_pageNo)}>{_pageNo}</li>
+//             return <li class={`page-link ${pageNo == _pageNo ? "active" : ""}`} onClick={()=>setPageNo(_pageNo)}>{_pageNo}</li>
 //         })}
 //         {pageNo < totalPageCount && <Fragment>
-//             <li className={`page-link page-next`} onClick={()=>setPageNo(pageNo+1)}>Next</li>
-//             <li className={`page-link page-last`} onClick={()=>setPageNo(totalPageCount)}>Last</li>
+//             <li class={`page-link page-next`} onClick={()=>setPageNo(pageNo+1)}>Next</li>
+//             <li class={`page-link page-last`} onClick={()=>setPageNo(totalPageCount)}>Last</li>
 //         </Fragment>}
 //     </ul>
 // }
@@ -738,20 +754,20 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
 //     if(categoryDetails == null) return <Fragment />
 //     console.log("rerednder")
 
-//     return <div className={`listingPageWrapper ${mobileFilterVisible ? "mobile-filter-visible": ""}`}>
+//     return <div class={`listingPageWrapper ${mobileFilterVisible ? "mobile-filter-visible": ""}`}>
 //         <Breadcrumb categoryData={categoryDetails} isCategoryLandingPage={isCategoryLandingPage}/>
-//         <div className="filer-product-wrapper">
+//         <div class="filer-product-wrapper">
 //             <Filter productBasketVM={productBasketVM} changePriceFilter={changePriceFilter} resetFilter={resetFilter} changeCheckboxFilter={changeCheckboxFilter} toggleMobileFilter={mobileFilterHandler} productCount={productCount}/>
-//             <div className="productDetailWrapper">
+//             <div class="productDetailWrapper">
 //                 <CategoryDetils categoryData={categoryDetails} productCount={productCount}/>
 //                 {isCategoryLandingPage && <SubCategoryList collectionType={categoryDetails.collectionType}/>}
-//                 {mobileFilterVisible && <div className="backDrop" onClick={mobileFilterHandler}/> }
-//                 <div className="sort-view-page">
-//                     <div className="filter_icon" onClick={mobileFilterHandler}>
+//                 {mobileFilterVisible && <div class="backDrop" onClick={mobileFilterHandler}/> }
+//                 <div class="sort-view-page">
+//                     <div class="filter_icon" onClick={mobileFilterHandler}>
 //                         <span class="icon-filter"></span>
 //                         <span class="filter-text">Filter</span>
 //                     </div>
-//                     {/*mobileFilterVisible && <div className="backDrop" onClick={mobileFilterHandler}/> */}
+//                     {/*mobileFilterVisible && <div class="backDrop" onClick={mobileFilterHandler}/> */}
 //                     <ListGridView setProduct={productView}/>
 //                     <ItemsPerPage changeItemPerPage={changeItemPerPage}/>
 //                     {/*<Pagiation productCount={productCount} productsPerPage={productBasketVM.PageSize} setPageNo={setPageNoHandler} pageNo={productBasketVM.PageNo}/>*/}
@@ -762,7 +778,7 @@ const CategoryLanding = ({collectionAlias, collectionGuid, stateProps}) => {
                 
 //             </div>
 //         </div>
-//         <div className="text-danger">remove bootstrap dd and add it similar to product card</div>
+//         <div class="text-danger">remove bootstrap dd and add it similar to product card</div>
 //     </div>
 // }
 

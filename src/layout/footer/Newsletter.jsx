@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
+import { createSignal } from "solid-js";
 
 export default function NewsLetter () {
-    const emailRef = useRef(null)
-    const [errorMsg, setErrorMsg] = useState("")
+    let emailRef;
+    const [errorMsg, setErrorMsg] = createSignal("")
 
     const validateEmail = () => {
         var emailPatternCheck = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
@@ -43,13 +43,13 @@ export default function NewsLetter () {
     }
 
     return <div id="newsLetterFooter">
-        <div className="newsletter_subheading">
+        <div class="newsletter_subheading">
             Sign up for exclusive updates, new arrivals &amp; insider only discounts
         </div>
-        <div className="newsletter_form">
-            <input id="NewsletterForm_footer" type="email" name="" className="field_input" aria-required="true" autoCorrect="off" autoCapitalize="off" placeholder="enter your email address" ref={emailRef} onBlur={validateEmail} />
-            <button type="submit" className="button newsletter_form_button" id="Subscribe" onClick={subscribeHandler}>Submit</button>
+        <div class="newsletter_form">
+            <input id="NewsletterForm_footer" type="email" name="" class="field_input" aria-required="true" autoCorrect="off" autoCapitalize="off" placeholder="enter your email address" ref={emailRef} onBlur={validateEmail} />
+            <button type="submit" class="button newsletter_form_button" id="Subscribe" onClick={subscribeHandler}>Submit</button>
         </div>
-        {errorMsg !== "" && <div className="footer_msg error-text">{errorMsg}</div>}
+        {errorMsg() !== "" && <div class="footer_msg error-text">{errorMsg()}</div>}
     </div>
 }

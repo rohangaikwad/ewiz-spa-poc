@@ -103,6 +103,7 @@ label { margin: 0; }
 .container { 
     display: block; width: 100%; position: relative; max-width: 100%; padding: 0 15px; margin: 0 auto; 
     @include media-min(lg) { max-width: 1200px; padding-left: 15px; padding-right: 15px; }
+    @media (min-width: 1600px) { max-width: 1280px; }
     //@include media-max(lg) { padding-left: 0; padding-right: 0; }
 }
 
@@ -356,11 +357,18 @@ header + nav {
 .footer_structure { background: var(--txt-color); width:100%; }
 
 /********************************************common single product card css********************************************************/
-.subCategoryList,
+
 .product-main-wrapper,
 .productWrapper {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); row-gap:30px; column-gap:15px; 
     @include media-max(xs) { grid-template-columns: auto auto; column-gap: 10px; }
+}
+.subCategoryList {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px;
+    a {
+        display: flex; flex-direction: column; align-items: center; text-align: center; font-size: 14px;
+        img { width: 100%; margin-bottom: 10px;; }
+    }
 }
 .product-card { border: 0; border-radius: 0;
     &:hover { 

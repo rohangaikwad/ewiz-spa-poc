@@ -1,10 +1,10 @@
-import { useLayoutEffect } from "react"
+import { createEffect } from "solid-js";
 
 export default function useScrollToTop() {
-    useLayoutEffect(() => {
+    createEffect(() => {
         window.scrollTo({
             top: 0, 
             behavior: "auto"
         })
-    }, [])
+    })
 }
