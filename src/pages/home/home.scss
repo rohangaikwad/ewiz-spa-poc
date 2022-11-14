@@ -2,3 +2,28 @@
     display: inline-block; width: 100%;
     img { width: 100%; }
 }
+
+
+.container.section_wrapper {
+    margin-top: 40px;
+    .title-main-wrapper h3.title {
+        display: flex;
+        gap: 30px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .title-main-wrapper h3.title:before, .title-main-wrapper h3.title:after {
+        content: "";
+        height: 1px;
+        flex: 1;
+        background: #000;
+        width: 100%;
+    }
+
+    a.view_all {margin: 5px 0 25px;display: inline-block;}
+
+    .title-main-wrapper {
+        text-align: center;
+}
+}

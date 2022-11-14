@@ -66,7 +66,7 @@ const SingleBanner = () => {
         "redirectionLink": window.location.origin + "/Category/New-Arrival"
     }
 
-    return <div class="banner2">
+    return <div class="banner2" style="margin-top:30px">
         <a href={bannerData.redirectionLink}>
             <img class="img-fluid lazyload" src={PlaceholderImageURL(1903, 969, "#ffffff")} data-src={bannerData.bannerLink} alt={bannerData.bannerTitle} width="100%" onError={(t) => onImgError(t)} />
         </a>

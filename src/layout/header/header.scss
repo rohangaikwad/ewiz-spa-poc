@@ -180,7 +180,7 @@ header + nav {
             display: flex; column-gap: 30px;
             .cat-item {
                 position: relative;
-                //&:not(.hasSubmenu) { display: none; }
+                &:not(.hasSubmenu) { display: none; }
                 & > a {
                     padding: 15px 0; display: flex; align-items: center; column-gap: 7px;
                     .arrow:before { content: "\e604"; font-family: 'simple-line-icons'; font-size: 12px; font-weight: 700; }
@@ -420,35 +420,38 @@ header + nav {
         }
     }
 
-    .card-block { padding:15px 0 0; 
+    .card-block {
+        padding:10px 0 0; 
         .product-upload-day { 
-            display: flex; align-items: center; justify-content: center; padding-bottom:5px; 
+            display: flex; align-items: center; justify-content: center;
             a { font-size:12px; font-weight: 400; color: #969696; text-transform: uppercase; line-height:var(--font-body-lineheight); }
         }
-        .product-name { text-align: center; margin-bottom:10px; min-height:36px; 
-            a { font-size:12px; font-weight: var(--font-body-weight); color:var(--txt-color); text-align: center; text-transform:capitalize; line-height:var(--font-body-lineheight); letter-spacing:0.32px; 
+        .product-name {
+            text-align: center;     text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            a { font-size: 14px;
+                padding: 0 5px; font-weight: var(--font-body-weight); color:var(--txt-color); text-align: center; text-transform:capitalize; line-height:var(--font-body-lineheight); letter-spacing:0.32px; 
                 &:hover { 
                     text-decoration: underline; 
                 }
             }
         }
-        .product-price { padding-bottom:15px; text-align: center; 
+        .product-price {
+            text-align: center;   margin-top: 5px;
             .price { 
                 p { 
-                    margin-bottom: 0; 
+                    margin: 0 auto; 
                     span { 
                         &:first-child { font-size: 12px; font-weight: 400; color: #969696; 
                             margin:0 10px 0 0; 
                         }
                     }
-                    .price-span { font-size:14px; font-weight: 600; 
-                            color:var(--txt-color); line-height: var(--font-body-lineheight); 
-                        .currencySymbol { font-size: 14px; 
-                            font-weight: 600; color:var(--txt-color); line-height:var(--font-body-lineheight); 
-                            margin:0; 
-                            &::before { 
-                                content: "\20B9"; 
-                            }
+                    .price-span {
+                        font-size: 16px; font-weight: 600; color:var(--txt-color); line-height: var(--font-body-lineheight); 
+                        .currencySymbol {
+                            font-size: 14px; font-weight: 600; color:var(--txt-color); line-height:var(--font-body-lineheight); margin:0; 
+                            &::before { content: "\20B9"; }
                         }
                     }
                 }

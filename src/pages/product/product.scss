@@ -20,22 +20,6 @@ h1.product-name {
     }
 }
 
-.price {
-    font-size: 28px; display: flex;
-    .currencySymbol { font-size: 16px; margin-top: 1px; margin-right: 1px; }
-}
-
-.discounted-price {
-    font-size: 28px; display: flex; align-items: center;
-    .currencySymbol { font-size: 16px; margin-top: 1px; margin-right: 1px; align-self: flex-start; }
-    .discount { color: #ff5722; font-weight: 600; margin-left: 10px; font-size: 20px; }
-
-    & + .price {
-        font-size: 14px; text-decoration: line-through; display: flex; align-items: flex-end; margin-top: 5px;
-        &:before { content: "M.R.P. "; font-size: 12px; margin-right: 5px; text-decoration: none; }
-        .currencySymbol { font-size: 14px; margin-top: 0; }
-    }
-}
 
 
 .productDetailWrapper {
@@ -50,6 +34,22 @@ h1.product-name {
 
     figure {
         margin: 0; background: #f1f1f1; border-radius: 5px; border: solid 1px #ddd;
+    }
+    .price {
+        font-size: 28px; display: flex;
+        .currencySymbol { font-size: 16px; margin-top: 1px; margin-right: 1px; }
+    }
+    
+    .discounted-price {
+        font-size: 28px; display: flex; align-items: center;
+        .currencySymbol { font-size: 16px; margin-top: 1px; margin-right: 1px; align-self: flex-start; }
+        .discount { color: #ff5722; font-weight: 600; margin-left: 10px; font-size: 20px; }
+    
+        & + .price {
+            font-size: 14px; text-decoration: line-through; display: flex; align-items: flex-end; margin-top: 5px;
+            &:before { content: "M.R.P. "; font-size: 12px; margin-right: 5px; text-decoration: none; }
+            .currencySymbol { font-size: 14px; margin-top: 0; }
+        }
     }
 }
 
