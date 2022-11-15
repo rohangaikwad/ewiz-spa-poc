@@ -14,50 +14,8 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <main id="root"></main>
 
-    <div id="hiddenfields">
-      <input type="hidden" value="False://localhost:55393" class="domainname" />
-      <div id="divHiddenFields" class="clsHiddenFields"></div>
-      <input type="hidden" id="hidGuid" />
-      <input type="hidden" id="hdnWebsiteGuid" value="8FFB58E5-3928-4769-87FF-B0BAE8E8F939" />
-      <input type="hidden" id="hdnLanguageGuid" value="3238bf6d-ddcb-4f65-aadb-3eee730fb9c8" />
-      <input type="hidden" id="hdnSearchText" />
-      <input type="hidden" id="hdnSearchResults" />
-      <input type="hidden" id="hdnSessionGuid" />
-      <input type="hidden" id="hdnBlogId" />
-      <input type="hidden" id="hdnPageNo" />
-      <input type="hidden" id="hdnKeyWord" />
-      <input type="hidden" id="hdnPostComment" />
-      <input type="hidden" id="hdnPostAuthor" />
-      <input type="hidden" id="hdnPostEmail" />
-      <input type="hidden" id="hdnPostWebsite" />
-      <input type="hidden" id="hdnCommentId" />
-      <input type="hidden" id="hdnParentId" />
-      <input type="hidden" id="hdnPostId" />
-      <input type="hidden" id="hdnAliasName" />
-      <input type="hidden" id="hdnMetaTitle" value="Home" />
-      <input type="hidden" id="hdnMetaKeywords" value="Ewiz Pro" />
-      <input type="hidden" id="hidmetadescription" value="Ewiz Pro" />
-      <input type="hidden" id="hdnVSType" />
-      <input type="hidden" id="hdnCDS" />
-      <input type="hidden" id="hdnMinprice" />
-      <input type="hidden" id="hdnMaxPrice" />
-      <input type="hidden" id="hdnMinOrder" />
-      <input type="hidden" id="hdnMaxOrder" />
-      <input type="hidden" id="hdnMasterColorGuid" />
-      <input type="hidden" id="hdnImprintMethodGuid" />
-      <input type="hidden" id="hdnProductMaterialGuid" />
-      <input type="hidden" id="hdnProductRating" />
-      <input type="hidden" id="hdnsectionGuid" />
-      <input type="hidden" id="hdncustomizeProductGuid" />
-      <input type="hidden" id="hidProductCode" />
-      <input type="hidden" id="hidEmploymentId" />
-      <input type="hidden" id="hidExternalLogin" value="False" />
-      <input type="hidden" id="hidExternalLoginCookieDetails" value="" />
-      <input type="hidden" id="hidTopLevelCategory" />
-    </div>
   
-    <script>
-  
+    <script>  
       //Added by Pramod Chilka for oAuth
       var tokens = {
         "SaaS_Configuration_Microservice_Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTYWFTX0NvbmZpZ3VyYXRpb25fTWljcm9zZXJ2aWNlIiwianRpIjoiN2EzNjliZGQtNDM2NC00YTMzLWE1ODEtZmE3OTFhMmU2ZjY0IiwiaWF0IjoxNjY4NDE0MDQzLCJuYmYiOjE2Njg0MTQwNDMsImV4cCI6MTY2ODUwMDQ0MywiaXNzIjoiRGVtb0lzc3VlciIsImF1ZCI6IkRlbW9BdWRpZW5jZSJ9.ibi_QNrgtODEmg_rIotep7V02VWpdPhckU7Td5MqWhg",
@@ -232,31 +190,7 @@
         var PromotionCodeFromCookie = "";
         var MarketingCodeFromURL = GetParameterValues('code');
         var RefererCode = getRefererCode();
-        if (PromotionfromCookies != null && PromotionfromCookies != "") {
-          PromotionfromCookies = JSON.parse(PromotionfromCookies);
-          if (PromotionfromCookies != null && PromotionfromCookies != "") {
-            if (PromotionfromCookies.marketingcode != null && PromotionfromCookies.marketingcode != "" && !IsRefererCodeExists(PromotionfromCookies.marketingcode)) {
-              MarketingCodeFromCookie = PromotionfromCookies.marketingcode;
-            }
-            else if ((MarketingCodeFromCookie == null || MarketingCodeFromCookie == "") && MarketingCodeFromURL) {
-              MarketingCodeFromCookie = MarketingCodeFromURL;
-            }
-            if ((MarketingCodeFromCookie == null || MarketingCodeFromCookie == "") && RefererCode) {
-              MarketingCodeFromCookie = RefererCode;
-            }
-            if (PromotionfromCookies.marketingcode != null && PromotionfromCookies.marketingcode != "") {
-              MarketingCodeFromCookie = PromotionfromCookies.marketingcode;;
-            }
-            if (PromotionfromCookies.promotioncode != null && PromotionfromCookies.promotioncode != "")
-              PromotionCodeFromCookie = PromotionfromCookies.promotioncode;
-          }
-          else {
-            MarketingCodeFromCookie = RefererCode;
-          }
-        }
-        else {
-          MarketingCodeFromCookie = RefererCode;
-        }
+        
         var _CookieDetails = { 'marketingcode': MarketingCodeFromCookie, 'promotioncode': PromotionCodeFromCookie }
         var _ThankYouCookieDetails = JSON.parse('null');
         _PromoCookieDetails = JSON.stringify(_CookieDetails);
